@@ -1,0 +1,30 @@
+{
+  "name": "strokepm",
+  "version": "1.0.0",
+  "description": "Stroke+- {/|\\} esoteric structured programming language",
+  "main": "stroke.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ttulka/strokepm.git"
+  },
+  "keywords": [
+    "stroke+-",
+    "esolang",
+    "structured",
+    "turing-complete",
+    "programming-language",
+    "js"
+  ],
+  "author": "Tomas Tulka (ttulka)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ttulka/strokepm/issues"
+  },
+  "homepage": "https://github.com/ttulka/strokepm#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
