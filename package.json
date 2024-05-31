@@ -1,8 +1,8 @@
 {
   "name": "strokepm",
   "version": "1.0.0",
-  "description": "Stroke+- {/|\\} esoteric structured programming language",
-  "main": "stroke.js",
+  "description": "Stroke+- is an esoteric structured programming language",
+  "main": "strokepm.js",
   "scripts": {
     "test": "jest"
   },
