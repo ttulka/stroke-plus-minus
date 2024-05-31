@@ -71,6 +71,17 @@ As variable *0* is never reset, the program loops forever:
 + | / | \
 ```
 
+### Clear
+
+Sets the value of variable *0* to zero:
+
+```stroke+-
+CLR 0:
+/ |
+  - |
+\
+```
+
 ### Move
 
 Moves the value in variable *0* to *1*:
@@ -97,17 +108,6 @@ CPY 0 1:
 / |||
   - |||   dec 2
   + |     inc 0
-\
-```
-
-### Clear
-
-Sets the value of variable *0* to zero:
-
-```stroke+-
-CLR 0:
-/ |
-  - |
 \
 ```
 
