@@ -23,12 +23,12 @@ const interpret = (program, memory, maxSteps, onOutput) => {
                 pc++
                 break
             }
-            case '[': {
+            case '(': {
                 if (!m[instr.variable]) pc = findNextLoopEnd(p, pc) + 1
                 else pc++
                 break
             }
-            case ']': {
+            case ')': {
                 pc = findPreviousLoopStart(p, pc)
                 break
             }
@@ -50,8 +50,8 @@ const interpret = (program, memory, maxSteps, onOutput) => {
         let pairs = 0
         while (pc > 0) {
             pc--
-            if (p[pc].id === ']') pairs++
-            if (p[pc].id === '[') {
+            if (p[pc].id === ')') pairs++
+            if (p[pc].id === '(') {
                 if (!pairs) return pc
                 pairs--
             }
@@ -63,8 +63,8 @@ const interpret = (program, memory, maxSteps, onOutput) => {
         let pairs = 0
         while (pc < p.length - 1) {
             pc++
-            if (p[pc].id === '[') pairs++
-            if (p[pc].id === ']') {
+            if (p[pc].id === '(') pairs++
+            if (p[pc].id === ')') {
                 if (!pairs) return pc
                 pairs--
             }
@@ -89,48 +89,47 @@ const interpret = (program, memory, maxSteps, onOutput) => {
 }
 
 // parse the program to AST
-function parse(program) {    
+function parse(program) {
+    if (-1 !== program.search(/[|]\s+[|]/g)) throw new Error('Syntax error: consequent vars')
     const source = program
-        .replaceAll(/[^\s\\/|!+-]/g, '') // remove all ignored chars
-        .replaceAll(/\s+/g, ' ') // normalize white spaces
-        .split(' ') // to array
-        .filter(s => /[\s\\/|!+-]+/.test(s))  // filter out new lines etc
+        .replaceAll(/\//g, '(')
+        .replaceAll(/\\/g, ')')
+        .replaceAll(/[^)(+\-|!]/g, '') // remove all ignored chars
 
     const ast = []
     let open = 0 // count of open loops
-    for (let i = 0; i < source.length; i++) {
-        const instr = source[i]
+    let i = 0
+    while (i < source.length) {
+        const instr = source[i++]
+        let attr = ''
+        while (i < source.length && /[^)(!+\-]/.test(source[i]))
+            attr += source[i++]
         
         if (/[+]+/.test(instr)) { // increment variable
-            i++
-            if (i >= source.length || !/[|]+/.test(source[i])) throw new Error('Syntax error: missing inc var at ' + i)
-            ast.push(new Instr('+', source[i].length - 1))
+            if (!attr.length || !/[|]+/.test(attr)) throw new Error('Syntax error: missing inc var at ' + i)
         } else
         if (/[-]+/.test(instr)) { // decrement variable
-            i++
-            if (i >= source.length || !/[|]+/.test(source[i])) throw new Error('Syntax error: missing dec var at ' + i)
-            ast.push(new Instr('-', source[i].length - 1))
+            if (!attr.length || !/[|]+/.test(attr)) throw new Error('Syntax error: missing dec var at ' + i)
         } else
-        if (/[/]/.test(instr)) { // loop start
+        if (/[(]/.test(instr)) { // loop start
             open++
-            i++
-            if (i >= source.length || !/[|]+/.test(source[i])) throw new Error('Syntax error: missing loop var at ' + i)
-            ast.push(new Instr('[', source[i].length - 1))
+            if (!attr.length || !/[|]+/.test(attr)) throw new Error('Syntax error: missing loop var at ' + i)
         } else
-        if (/[\\]/.test(instr)) { // loop end
+        if (/[)]/.test(instr)) { // loop end
             open--
-            ast.push(new Instr(']'))
+            if (attr.length) throw new Error('Syntax error: not expected var at ' + i)
         } else
         if (/!+/.test(instr)) { // output
-            ast.push(new Instr('!'))
         } else 
             throw new Error('Syntax error: invalid instruction "' + instr + '" at ' + i)
+
+        ast.push(new Instr(instr, attr.length - 1))
 
         if (open < 0) throw new Error('Syntax error: missing loop start at ' + i)
     }
 
     if (open) throw new Error('Syntax error: missing loop end(s)')
-
+ 
     return ast
 }
 

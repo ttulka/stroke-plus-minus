@@ -6,13 +6,13 @@
 
 With only four instructions, it aims to be the simplest Turing-complete structured programming language possible.
 
-It uses conditional loops and an unbounded number of non-negative integer variables along with manipulation their values.
+It uses conditional loops and an unbounded number of non-negative integer variables along with manipulation of their values.
 
 Stroke+- is an extension of [Stroke](https://github.com/ttulka/stroke) that is even simpler but at the cost of sacrificing Turing completeness.
 
 ## Language
 
-Stroke+- code consists of stroke symbols `/`, `|`, `\`, and arithmetic signs `+`, `-`, along with white spaces to separate them. 
+Stroke+- code consists of stroke symbols `/`, `|`, `\`, and arithmetic signs `+`, `-`. 
 
 All other symbols are ignored.
 
@@ -20,12 +20,10 @@ All other symbols are ignored.
 
 | Instr   | Name       | Meaning |
 | ------- | ---------- | ------- |
-| `+ var` | Increment  | Increments the value of the variable |
-| `- var` | Decrement  | Decrements the value of the variable |
-| `/ var` | Loop start | Enters a new loop if the variable is non-zero |
+| `+var` | Increment  | Increments the value of the variable |
+| `-var` | Decrement  | Decrements the value of the variable |
+| `/var` | Loop start | Enters a new loop if the variable is non-zero |
 | `\`     | Loop end   | Jumps back to the matching loop start |
-
-All instructions and their attributes are separated by one or more white spaces.
 
 The example code in Stroke+-:
 
@@ -55,6 +53,8 @@ Optionally, the instruction for output `!` may be implemented.
 A Stroke+- program runs on a theoretically infinite tape of non-negative integer cells that are randomly accessible via variables denoted by consecutive vertical stroke symbols (`|`) in unary form starting from zero. For instance, `|` refers to the variable indexed by 0, `||` refers to the variable indexed by 1, `|||` refers to the variable indexed by 2, and so on.
 
 ## Examples
+
+(White spaces are added only for the sake of readability.)
 
 ### Empty program
 
@@ -139,6 +139,8 @@ CPY 0 2     aux 2
 
 ### Fibonacci sequence
 
+Computes the Fibonacci sequence in *0* using *1* and *2* as auxiliaries:
+
 ```stroke+-
 FIB:
 + |||||
@@ -194,14 +196,7 @@ npm i strokepm
 ```js
 const strokepm = require('strokepm')
 
-strokepm(`
-  + | 
-  / | 
-    - | 
-    + || 
-  \\
-  + |||
-`)  // [0, 1, 1]
+strokepm('+|/|-|+||\\+|||')  // [0, 1, 1]
 ```
 
 ## License

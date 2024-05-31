@@ -80,7 +80,8 @@ test('simple', () => {
       + || 
     \\
     + |||
-`)).toStrictEqual([0, 1, 1])
+  `)).toStrictEqual([0, 1, 1])
+  expect(strokepm(`+|/|-|+||\\+|||`)).toStrictEqual([0, 1, 1])
 })
 
 test('MOV 0 1', () => {
