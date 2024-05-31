@@ -12,7 +12,7 @@ Stroke+- is an extension of [Stroke](https://github.com/ttulka/stroke) that is e
 
 ## Language
 
-Stroke code consists of stroke symbols `/`, `|`, `\`, and arithmetic signs `+`, `-`, along with white spaces to separate them. 
+Stroke+- code consists of stroke symbols `/`, `|`, `\`, and arithmetic signs `+`, `-`, along with white spaces to separate them. 
 
 All other symbols are ignored.
 
@@ -20,10 +20,10 @@ All other symbols are ignored.
 
 | Instr   | Name       | Meaning |
 | ------- | ---------- | ------- |
-| `/ var` | Loop start | Enters a new loop if the variable is non-zero |
-| `\`     | Loop end   | Jumps back to the matching loop start |
 | `+ var` | Increment  | Increments the value of the variable |
 | `- var` | Decrement  | Decrements the value of the variable |
+| `/ var` | Loop start | Enters a new loop if the variable is non-zero |
+| `\`     | Loop end   | Jumps back to the matching loop start |
 
 All instructions and their attributes are separated by one or more white spaces.
 
@@ -188,13 +188,20 @@ Stroke+- is Turing complete according to [the structured program theorem](https:
 ## JavaScript interpreter
 
 ```sh
-npm i stroke-lang
+npm i strokepm
 ```
 
 ```js
-const stroke = require('stroke-lang')
+const strokepm = require('strokepm')
 
-stroke('+ | / | - | + || \\ + |||')  // "011"
+strokepm(`
+  + | 
+  / | 
+    - | 
+    + || 
+  \\
+  + |||
+`)  // [0, 1, 1]
 ```
 
 ## License
