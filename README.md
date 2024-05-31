@@ -1,8 +1,8 @@
-# Stroke {/|\\}
+# Stroke+-
 
 <img src="logo.png" style="width: 20%; float: right; margin: 1rem 0 1rem 2rem; border-radius: 1rem; max-width: 250px; float: right" align="right" width="250">
 
-**Stroke+-** is an esoteric structured programming language.
+**Stroke+-**, also `+{/|\}-`, is an esoteric structured programming language.
 
 With only four instructions, it aims to be the simplest Turing-complete structured programming language possible.
 
