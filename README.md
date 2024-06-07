@@ -154,7 +154,7 @@ FIB:
 
 ### Hello World
 
-For computing "Hello World" the numeric values must interpreted as a string. 
+For computing "Hello World" the numeric values must be interpreted as a string. 
   It can achieved by defining a binary alphabet:
 
 | Symbol | Binary |
