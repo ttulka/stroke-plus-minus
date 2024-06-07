@@ -8,7 +8,7 @@ With only four instructions, it aims to be the simplest Turing-complete structur
 
 It uses conditional loops and an unbounded number of non-negative integer variables along with manipulation of their values.
 
-Stroke+- is an extension of [Stroke](https://github.com/ttulka/stroke) that is even simpler but at the cost of sacrificing Turing completeness.
+Stroke+- is an extension of [Stroke](https://github.com/ttulka/stroke) which is even simpler but at the cost of sacrificing Turing completeness.
 
 ## Language
 
